@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="#{note.title}"></title>
+</head>
+<body>
+<span th:text="#{language}"></span>: <a href="?lang=en">English</a> | <a href="?lang=vi">Vietnamese</a>
+<p><a href="/note/create" th:text="#{body.create}"></a></p>
+<h1 th:text="#{note.heading}"></h1>
+<form>
+    <tr>
+        <td><p th:text="#{body.search}"></p></td>
+        <td><input type="text" name="s"></td>
+        <td> <input type="submit" th:value="#{value.search}"></td>
+    </tr>
+</form>
+<table border="1">
+    <tr>
+        <th th:text="#{table.title}"></th>
+        <th th:text="#{table.content}"></th>
+        <th th:text="#{table.noteType}"></th>
+        <th th:text="#{table.edit}"></th>
+        <th th:text="#{table.delete}"></th>
+    </tr>
+    <th:block th:each="note : ${noteList}">
+        <tr>
+            <td th:text="${note.title}"></td>
+            <td th:text="${note.content}"></td>
+            <td th:text="${note.noteType.name}"></td>
+            <td><a th:href="@{/note/edit/__${note.id}__}" th:text="#{body.edit}"></a></td>
+            <td><a th:href="@{/note/delete/__${note.id}__}" th:text="#{body.delete}"></a></td>
+        </tr>
+    </th:block>
+
+</table>
+<div>
+    <a th:href="@{'/note/list'(page=${noteList.number - 1})}" th:if="${noteList.hasPrevious()}" th:text="#{page.previous}"></a>
+    <span th:text="${noteList.number + 1}"></span>/<span th:text="${noteList.totalPages}"></span>
+    <a th:href="@{'/note/list'(page=${noteList.number + 1})}" th:if="${noteList.hasNext()}" th:text="#{page.next}"></a>
+</div>
+<p>
+    <a href="/noteType/list" th:text="#{noteType.list}"></a>
+</p>
+</body>
+
+</html>

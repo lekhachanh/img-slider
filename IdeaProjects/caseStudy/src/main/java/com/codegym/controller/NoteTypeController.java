@@ -1,12 +1,14 @@
 package com.codegym.controller;
 
 
+import com.codegym.model.Note;
 import com.codegym.model.NoteType;
+import com.codegym.service.NoteService;
 import com.codegym.service.NoteTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -17,6 +19,9 @@ public class NoteTypeController {
 
     @Autowired
     private NoteTypeService noteTypeService;
+
+    @Autowired
+    private NoteService noteService;
 
     @GetMapping("/list")
     public ModelAndView listNoteType(Pageable pageable){
@@ -90,4 +95,20 @@ public class NoteTypeController {
         return "redirect:list";
 
     }
+
+    @GetMapping("/view/{id}")
+    public ModelAndView viewNoteType(@PathVariable Long id){
+        NoteType noteType = noteTypeService.findById(id);
+        if(noteType == null){
+            return new ModelAndView("/error-404");
+        }
+
+        Iterable<Note> notes = noteService.findAllByNoteType(noteType);
+
+        ModelAndView modelAndView = new ModelAndView("/noteType/view");
+        modelAndView.addObject("noteType", noteType);
+        modelAndView.addObject("notes", notes);
+        return modelAndView;
+    }
+
 }

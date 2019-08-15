@@ -1,6 +1,7 @@
 package com.codegym.model;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "noteType")
@@ -10,6 +11,9 @@ public class NoteType {
     private Long id;
     private String name;
     private String description;
+
+    @OneToMany(targetEntity = Note.class)
+    private List<Note> noteList;
 
     public NoteType() {
     }
