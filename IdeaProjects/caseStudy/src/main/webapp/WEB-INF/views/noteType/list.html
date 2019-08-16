@@ -2,32 +2,33 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>NoteType List</title>
+    <title th:text="#{noteType.title}"></title>
 </head>
 <body>
-<p><a href="/noteType/create">Create new NoteType</a></p>
-<h1>NoteType List</h1>
+<p><a href="/noteType/create" th:text="#{create.noteType}"></a></p>
+<span th:text="#{language}"></span>: <a href="?lang=en">English</a> | <a href="?lang=vi">Vietnamese</a>
+<h1 th:text="#{noteType.title}"></h1>
 <table border="1">
     <tr>
-        <th>Name:</th>
-        <th>Description</th>
-        <th>Edit</th>
-        <th>Delete</th>
-        <th>View</th>
+        <th th:text="#{noteType.name}"></th>
+        <th th:text="#{noteType.Description}"></th>
+        <th th:text="#{body.edit}"></th>
+        <th th:text="#{body.delete}"></th>
+        <th th:text="#{body.view}"></th>
     </tr>
     <th:block th:each="noteType : ${noteTypes}">
      <tr>
          <td th:text="${noteType.name}"></td>
          <td th:text="${noteType.description}"></td>
-         <td><a th:href="@{/noteType/edit/__${noteType.id}__}">Edit</a></td>
-         <td><a th:href="@{/noteType/delete/__${noteType.id}__}">Delete</a></td>
-         <td><a th:href="@{/noteType/view/__${noteType.id}__}">View</a></td>
+         <td><a th:href="@{/noteType/edit/__${noteType.id}__}" th:text="#{body.edit}"></a></td>
+         <td><a th:href="@{/noteType/delete/__${noteType.id}__}" th:text="#{body.delete}"></a></td>
+         <td><a th:href="@{/noteType/view/__${noteType.id}__}" th:text="#{body.view}"></a></td>
      </tr>
     </th:block>
 
 </table>
 <p>
-    <a href="/note/list">Go to Note List</a>
+    <a href="/note/list" th:text="#{note.list}"></a>
 </p>
 </body>
 

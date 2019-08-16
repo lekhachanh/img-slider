@@ -53,26 +53,27 @@ public class NoteTypeController {
     }
 
     @GetMapping("/edit/{id}")
-    public ModelAndView editForm(@PathVariable Long id){
-         NoteType noteType = noteTypeService.findById(id);
-         ModelAndView modelAndView = new ModelAndView("/noteType/edit");
-         modelAndView.addObject("noteType", noteType);
-         return modelAndView;
-    }
-
-    @PostMapping("/update")
-    public ModelAndView updateNoteType(@ModelAttribute NoteType noteType){
-        noteType = noteTypeService.findById(noteType.getId());
+    public ModelAndView showEditNoteTForm(@PathVariable Long id){
+        NoteType noteType = noteTypeService.findById(id);
         if (noteType != null) {
             ModelAndView modelAndView = new ModelAndView("/noteType/edit");
             modelAndView.addObject("noteType", noteType);
-            modelAndView.addObject("message", "updated successfully");
             return modelAndView;
         }else {
             ModelAndView modelAndView = new ModelAndView("/error-404");
             return modelAndView;
         }
     }
+
+    @PostMapping("/update")
+    public ModelAndView updateNote(@ModelAttribute ("note") NoteType noteType){
+        noteTypeService.save(noteType);
+        ModelAndView modelAndView = new ModelAndView("/noteType/edit");
+        modelAndView.addObject("noteType", noteType);
+        modelAndView.addObject("message", "updated successfully ");
+        return modelAndView;
+    }
+
 
     @GetMapping("/delete/{id}")
     public ModelAndView deleteNoteType(@PathVariable Long id) {

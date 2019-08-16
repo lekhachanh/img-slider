@@ -164,9 +164,4 @@ public class ApplicationConfig extends WebMvcConfigurerAdapter implements Applic
         localeResolver.setDefaultLocale(new Locale("en"));
         return localeResolver;
     }
-
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/static/**").addResourceLocations("/static/");
-    }
 }
