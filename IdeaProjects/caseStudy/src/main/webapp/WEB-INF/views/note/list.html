@@ -1,13 +1,17 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title th:text="#{note.title}"></title>
 </head>
 <body>
 <span th:text="#{language}"></span>: <a href="?lang=en" th:text="#{english}"></a> | <a href="?lang=vi" th:text="#{viet}"></a>
+<div sec:authorize="isAuthenticated()">
+    <a th:href="@{/note/list}">Home</a> | <a th:href="@{/login}">Logout</a>
+</div>
 <p><a href="/note/create" th:text="#{body.create}"></a></p>
 <h1 th:text="#{note.heading}"></h1>
+
 <form>
     <tr>
         <td><p th:text="#{body.search}"></p></td>

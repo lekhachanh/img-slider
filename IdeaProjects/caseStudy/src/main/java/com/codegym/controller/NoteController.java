@@ -105,6 +105,4 @@ public class NoteController {
         return "redirect:list";
 
     }
-
-
 }
